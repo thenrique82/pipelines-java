@@ -26,7 +26,10 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
-- task: SonarQubeAnalyze@4
-- task: SonarQubePublish@4
+- task: SonarQubeScannerCli@2
   inputs:
-    pollingTimeoutSec: '300'
+    connectedServiceName: 'Sonarqube'
+    projectKey: 'AzureDevops'
+    projectName: 'AzureDevops'
+    projectVersion: '1.0'
+    sources: '.'
