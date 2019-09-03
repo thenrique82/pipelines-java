@@ -10,6 +10,11 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'Sonarqube'
+    scannerMode: 'Other'
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -21,21 +26,7 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
-- task: SonarQubePrepare@4
-  inputs:
-    SonarQube: 'Sonarqube'
-    scannerMode: 'Other'
-
 - task: SonarQubeAnalyze@4
-
-- task: SonarQubeScannerCli@2
-  inputs:
-    connectedServiceName: 'Sonarqube'
-    projectKey: 'AzureDevops'
-    projectName: 'AzureDevops'
-    projectVersion: '1.0'
-    sources: '.'
-
 - task: SonarQubePublish@4
   inputs:
     pollingTimeoutSec: '300'
