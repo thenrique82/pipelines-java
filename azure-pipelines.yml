@@ -12,9 +12,13 @@ pool:
 steps:
 - task: SonarQubePrepare@4
   inputs:
-    SonarQube: 'Sonarqube'
     scannerMode: 'Other'
-
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectName=Teste
+      sonar.projectKey=Teste
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -25,11 +29,6 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-
-- task: SonarQubeScannerCli@2
+- task: SonarQubePublish@4
   inputs:
-    connectedServiceName: 'Sonarqube'
-    projectKey: 'AzureDevops'
-    projectName: 'AzureDevops'
-    projectVersion: '1.0'
-    sources: '.'
+    pollingTimeoutSec: '300'
