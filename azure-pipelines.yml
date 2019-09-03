@@ -12,6 +12,7 @@ pool:
 steps:
 - task: SonarQubePrepare@4
   inputs:
+    SonarQube: 'Sonarqube'
     scannerMode: 'Other'
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
