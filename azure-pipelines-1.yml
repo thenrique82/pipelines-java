@@ -32,7 +32,15 @@ steps:
       sonar.projectKey=AzureDevops
       sonar.host.url=https://sonarqube.minutoseguros.com.br
       sonar.login=d1a3aaebeebf40872b81be219867992b765f9b72
+- task: SonarQubeScannerCli@2
+  inputs:
+    connectedServiceName: 'Sonarqube'
+    projectKey: 'AzureDevops'
+    projectName: 'AzureDevops'
+    projectVersion: '1.0'
+    sources: '.'
 - task: SonarQubeAnalyze@4
 - task: SonarQubePublish@4
   inputs:
     pollingTimeoutSec: '300'
+
