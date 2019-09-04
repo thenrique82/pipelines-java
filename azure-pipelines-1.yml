@@ -20,3 +20,19 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'Sonarqube'
+    scannerMode: 'Other'
+    extraProperties: |
+      # A
+      dditional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectKey=AzureDevops
+      sonar.host.url=https://sonarqube.minutoseguros.com.br
+      sonar.login=d1a3aaebeebf40872b81be219867992b765f9b72
+- task: SonarQubeAnalyze@4
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
